@@ -1,140 +1,201 @@
-# SharifGPT AI Agent — Product & Technical Overview
-_Generated on 2025-11-07 13:51 UTC_
+# SharifGPT AI Agent — Business Overview & Partner Platform
+_Generated on 2025-11-07 14:01 UTC_
 
-## TL;DR
-SharifGPT is an **AI Agent platform** that turns everyday chat interfaces (Telegram mini‑apps today; web and WhatsApp next) into **actionable assistants**. It bundles best‑in‑class AI capabilities (voice ↔ text, OCR, image generation, search, templated outreach, etc.) with **payments, quotas, and analytics**, then evolves into a **developer marketplace** where third‑party agents can be published, metered, and monetized.
-
----
-
-## The Problem
-1. Users want AI to **do** things (book, draft, search, generate, email) inside the apps they already use, not to jump between tools.
-2. Builders can prototype an agent quickly, but **operationalizing** (state, safety, quotas, billing, observability) is hard and time‑consuming.
-3. Regional payment rails and messaging ecosystems (e.g., Telegram) are **fragmented**; distribution is the moat, not the model weights.
-
-## Our Solution
-SharifGPT provides a **full‑stack runtime** for chat‑native agents:
-- **Messaging adapters** → Telegram (live), Web (in progress), WhatsApp (planned)
-- **Long‑lived workflows** → stateful runs per user/session, resumable steps, idempotent event handling
-- **Usage metering & wallets** → token reservation/commit, credit/refund flows, rate limits
-- **Safety & policy** → prompt/response checks, provider fallbacks
-- **Commerce** → subscriptions, pay‑as‑you‑go usage, coupons, referral loops
-- **Observability** → events, traces, analytics, and dashboards
-
-> Net effect: faster time‑to‑value for both **end users** and **agent builders**.
+## One‑liner
+SharifGPT turns everyday chat into **revenue‑generating services**. Users get a powerful AI assistant; creators and businesses publish their own services on top of it and get paid.
 
 ---
 
-## What Users Can Do Today
-- **Voice → Text** (transcribe messages, meetings, and notes)
-- **Text → Voice** (human‑like audio replies; multi‑voice library) — _beta_
-- **Image Generation** (marketing banners, post thumbnails) with **safety gates**
-- **OCR & Document Tools** (extract text, summarize, translate) — _in rollout_
-- **Email/Outreach Templates** (e.g., faculty search + tailored emails for admissions)
-- **Inline Utilities** (TL;DR, rewrite, translate, code assist) with quotas
-- **Referral & Rewards** (Telegram mini‑app flows, invite links, scoreboards)
+## What SharifGPT Is
+A **chat‑native AI services platform**:
+- For **end users**: a single assistant that transcribes, writes, designs images, summarizes documents, drafts outreach, and more—directly in Telegram today (web coming next).
+- For **partners (creators, coaches, agencies, SaaS)**: a place to **launch and monetize** chat workflows without building infrastructure. Publish your service once, we handle access, usage limits, payments, and analytics.
+
+**Vision:** evolve into a **marketplace of AI agents** where third‑party builders list services, set pricing, and reach users immediately.
 
 ---
 
-## How It Works (High‑Level)
-- **Cloudflare Workers** host the adapters and APIs (edge close to users).
-- **Cloudflare Durable Objects** hold **session state** (per chat/user) and act as single‑writer coordinators.
-- **Cloudflare Queues + Workflows** orchestrate long‑running tasks (e.g., voice pipeline) with **exactly‑once semantics**.
-- **KV/R2** store lightweight metadata and media artifacts.
-- **Provider Abstraction** routes to multiple AI vendors (LLMs, TTS/STT, image) with fallbacks and per‑provider quotas.
-- **Ledger** tracks token reservations → commit/credit → refunds for failures/timeouts.
+## Customer Value
+**Users**
+- Convenience: do more from the same chat you already use.
+- Speed: voice↔text, document tools, image generation, tailored outreach.
+- Fair pricing: subscriptions or usage packs with clear limits.
 
-### Architecture (Mermaid)
-```mermaid
-graph LR
-  TG[Telegram Mini‑App / Bot] -->|webhook| WKR[Cloudflare Worker]
-  WKR --> DO[Durable Object<br/>Session/RateLimit]
-  DO --> Q[Queues]
-  Q --> WF[Workflows<br/>Long‑lived runs]
-  WF --> P1[LLM Provider]
-  WF --> P2[STT/TTS Provider]
-  WF --> P3[Image Gen Provider]
-  WF --> AE[Analytics Engine]
-  WF --> LGR[Ledger / Wallets]
-  WF --> KV[(KV/R2 Storage)]
-  WF -->|callback| WKR
-  WKR --> TG
-```
+**Partners**
+- Distribution: tap into SharifGPT’s growing user base and our chat channels.
+- Monetization: charge per request, per minute, or via bundles/subscriptions.
+- Operations done‑for‑you: onboarding, quotas, payments, receipts, refunds, and dashboards—no engineering team required.
 
-### Example Flow (Telegram voice note → transcript)
-```mermaid
-sequenceDiagram
-  participant U as User
-  participant TG as Telegram
-  participant W as Worker (Webhook)
-  participant DO as Durable Object (Session)
-  participant Q as Queue
-  participant WF as Workflow (Voice-to-Text)
-  participant STT as STT Provider
-
-  U->>TG: Send voice message
-  TG->>W: Webhook (update)
-  W->>DO: Attach session / rate limit
-  DO->>Q: Enqueue transcription job
-  Q->>WF: Start/attach workflow run (per chat)
-  WF->>STT: Transcribe audio
-  STT-->>WF: Transcript
-  WF->>W: Callback (success + usage)
-  W->>TG: Send transcript to user
-```
+**Businesses**
+- White‑label options for your community or customer base.
+- Standardized checkout, usage tracking, and role‑based access.
+- Usage insights to inform pricing and product improvements.
 
 ---
 
-## Safety, Reliability & Data Policy
-- **Safety gates** on prompts and outputs; **fallback models** on provider errors.
-- **Idempotent** event processing (detect duplicate updates and re‑attach to existing workflow).
-- **Data minimization**: store only what we must for billing, audit, and product improvement.
-- **User controls**: opt‑out of data retention for specific flows (planned).
+## What People Can Do Today
+- **Voice → Text**: transcribe voice notes, interviews, lectures.
+- **Text → Voice** (beta): create natural audio from text for lessons and promos.
+- **Image Generation**: produce banners/thumbnails for posts and ads with safety guards.
+- **Docs & OCR**: extract, summarize, translate; export clean results.
+- **Outreach & Templates**: find relevant contacts and draft tailored emails/messages.
+- **Inline Utilities**: rewrite, translate, TL;DR, coding helpers.
+- **Growth Loops**: invite links, in‑chat rewards, and referral programs.
+
+---
+
+## How Partners Use SharifGPT
+**Launch your service in 3 steps**
+1) **Define your offer**: describe inputs/outputs (e.g., “Podcast transcription with timestamps” or “Writing feedback with rubric”).  
+2) **Set pricing & limits**: free trial, subscription, or pay‑per‑use; choose quotas.  
+3) **Publish**: get a shareable link and storefront card inside SharifGPT. Users can try, buy, and use instantly in chat.
+
+**Access & Control**
+- **No‑code** templates for common services.
+- **Low‑code** option to connect your own AI accounts or external tools.
+- **Policies & safety** built in to keep services compliant.
+- **Analytics**: usage, revenue, retention, top customers.
+
+**Payouts**
+- Monthly payouts with a transparent dashboard.
+- Clear revenue share; promo codes and partner discounts supported.
 
 ---
 
 ## Business Model
-- **Direct**: Telegram subscriptions, usage‑based packs, and premium bundles.
-- **B2B**: white‑label agents for creators/communities; managed quotas & billing.
-- **Marketplace (Phase 3)**: publish/pay for third‑party agents with revenue share; in‑app discovery and referral loops.
+- **B2C**: subscriptions and usage packs for end users.
+- **Marketplace**: revenue share on partner services (listings, bundles, add‑ons).
+- **B2B**: white‑label deployments for communities/brands; volume pricing and support SLAs.
+
+**Example Economics (illustrative)**
+- Take rate: **10–25%** depending on volume and support tier.
+- Average order value (AOV): **$5–$25** per service run (varies by category).
+- Conversion drivers: trial → bundle upgrade, creator trackable links, referral credits.
 
 ---
 
-## Traction (fill‑in ready)
-- Users (MAU): **[___]**
-- Paying users / conversion: **[___]**
-- Messages/month / tasks completed: **[___]**
-- GMV across AI subscriptions (SharifGPT commerce): **[___]**
-- Top use cases: **[___]**
+## Traction (fill‑in)
+- Monthly active users: **[___]**
+- Paying users / conversion rate: **[___]**
+- Partner listings live: **[___]**
+- GMV last 30 days: **[___]**
+- Top service categories: **[___]**
 
-> Replace **[___]** with your latest metrics; we can auto‑pull these from analytics in a dashboard.
-
----
-
-## Roadmap (Next 2–3 Months)
-- [x] **Voice → Text** workflow (live)
-- [ ] **Text → Voice** voices & SSML controls; caching
-- [ ] **Document toolkit** (OCR → summarize → translate → export)
-- [ ] **Search + RAG**: bring‑your‑docs, citations, per‑workspace memory
-- [ ] **Payments v2**: coupons, referral rewards, credit packs
-- [ ] **Web app** parity with Telegram mini‑app
-- [ ] **Developer SDK** + publish flow (marketplace alpha)
-- [ ] **Observability**: per‑user/per‑agent dashboards (latency, cost, success rates)
+> We can export these automatically into a live dashboard for investor updates.
 
 ---
 
-## Why Us
-- **Distribution**: we lead with Telegram in MENA‑first channels where adoption is strong; expand to web/WhatsApp for global reach.
-- **Operational rigor**: strong focus on reliability, cost controls, and safety from day one.
-- **Ecosystem vision**: not just a chat wrapper—**a commerce & marketplace layer** for agents.
+## Roadmap (Business Outcomes)
+- **Open Listings**: self‑serve partner onboarding & storefronts.
+- **Bundles**: sell curated service packs (e.g., “Creator Kit” or “Admissions Kit”).
+- **Web App**: full parity with Telegram for broader reach.
+- **Enterprise & Education**: workspace controls, team seats, consolidated billing.
+- **Partner Tools**: coupons, affiliate links, and embeddable “Use with SharifGPT” buttons.
+- **Ratings & Reviews**: quality signals to improve discovery and trust.
 
 ---
 
-## Competition & Differentiation
-- **General chat apps**: great LLM UX, but limited **operationalization** for third‑party agents (state, billing, quotas).
-- **No‑code bot builders**: fast starts, but brittle at scale; **lack durable workflows** and serious metering.
-- **Vertical point tools**: deep in a niche; we unify **multi‑modal** primitives with **payments + distribution**.
-- **Our edge**: stateful workflows, cost‑aware routing, Telegram‑native growth loops, and a clear path to a developer marketplace.
+## Differentiation
+- **Chat‑first distribution**: remove friction—customers pay and use inside chat.
+- **Operational moat**: we standardize payments, limits, refunds, and support so partners focus on value, not plumbing.
+- **Multi‑service experience**: users can chain tasks (voice → doc summary → outreach) in one thread.
+- **Marketplace flywheel**: more partners → more use cases → more users → higher partner revenue.
 
+---
+
+
+## Business Architecture (Investor View)
+
+```mermaid
+graph LR
+  %% Business-side architecture emphasizing value and revenue flows
+  subgraph Demand[Demand Side]
+    U[End Users]
+    B2B[Businesses / Teams]
+  end
+
+  subgraph Platform[SharifGPT Platform]
+    D[Discovery & Storefronts]
+    P[Payments & Billing]
+    M[Quotas & Metering]
+    S[Safety & Compliance]
+    A[Analytics & Dashboards]
+    CS[Support]
+  end
+
+  subgraph Supply[Supply Side]
+    CR[Creators & Coaches]
+    AG[Agencies]
+    SA[SaaS & Tool Vendors]
+    VE[Vertical Experts]
+  end
+
+  subgraph Channels[Distribution Channels]
+    TG[Telegram]
+    WEB[Web App]
+    AFF[Affiliates & Referrals]
+  end
+
+  %% Demand -> Platform
+  U -->|Buys services / packs| D
+  B2B -->|Buys bundles / white‑label| D
+
+  %% Platform -> Supply routing
+  D --> OR((Order Routing))
+  OR --> CR
+  OR --> AG
+  OR --> SA
+  OR --> VE
+
+  %% Ops & trust
+  D --> M
+  D --> S
+  D --> CS
+  A -->|Usage & revenue insights| CR
+  A -->|Usage & revenue insights| AG
+  A -->|Usage & revenue insights| SA
+  A -->|Usage & revenue insights| VE
+
+  %% Money flows
+  D --> P
+  P -->|Payouts| CR
+  P -->|Payouts| AG
+  P -->|Payouts| SA
+  P -->|Payouts| VE
+  P -->|Revenue share| TR[SharifGPT Take Rate]
+
+  %% Distribution
+  TG --> D
+  WEB --> D
+  AFF --> D
+
+  classDef money fill:#fff6e6,stroke:#f0ad4e,stroke-width:1px;
+  class P,TR money;
+```
+
+
+## Ideal Partners
+- **Creators & coaches** selling content edits, language feedback, and podcast kits.
+- **Agencies** offering design turnarounds, copy packages, or lead‑gen outreach.
+- **Vertical experts** (e.g., admissions, legal drafting, finance summaries) with repeatable workflows.
+- **SaaS tools** that want a chat checkout/usage layer without rebuilding UX and billing.
+
+---
+
+## Go‑to‑Market
+- **Creator pilots**: co‑branded mini‑apps with rev‑share.
+- **Referral programs**: trackable links for partners and micro‑influencers.
+- **Community channels**: Telegram and web landing pages with category pages.
+- **B2B**: target communities (education, creators, SMB hubs) for white‑label.
+
+---
+
+## What We’re Raising / Use of Funds
+- Scale user acquisition and creator partnerships.
+- Expand marketplace operations (trust & safety, QA, support).
+- Build partner tooling (listings, pricing experiments, analytics upgrades).
+
+---
 
 
 ## 1. Who writes code, or does other technical work on your product? Was any of it done by a non-founder? Please explain.
