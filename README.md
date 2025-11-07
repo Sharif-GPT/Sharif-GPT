@@ -67,19 +67,19 @@ A **chat‑native AI services platform**:
 - **Marketplace**: revenue share on partner services (listings, bundles, add‑ons).
 - **B2B**: white‑label deployments for communities/brands; volume pricing and support SLAs.
 
-**Example Economics (illustrative)**
+**Example Economics**
 - Take rate: **10–25%** depending on volume and support tier.
 - Average order value (AOV): **$5–$25** per service run (varies by category).
 - Conversion drivers: trial → bundle upgrade, creator trackable links, referral credits.
 
 ---
 
-## Traction (fill‑in)
-- Monthly active users: **[___]**
-- Paying users / conversion rate: **[___]**
-- Partner listings live: **[___]**
-- GMV last 30 days: **[___]**
-- Top service categories: **[___]**
+## Traction
+- Monthly active users: **[15,000]**
+- Paying users: **[1,000 / AOV ~ 20$ ]**
+- Partner listings live: **[ 0 ]**
+- GMV last 30 days: **[21,000 $]**
+- Top service categories: **[E-Commerce]**
 
 > We can export these automatically into a live dashboard for investor updates.
 
@@ -175,12 +175,11 @@ graph LR
 
 
 ## Ideal Partners
-- **Creators & coaches** selling content edits, language feedback, and podcast kits.
-- **Agencies** offering design turnarounds, copy packages, or lead‑gen outreach.
-- **Vertical experts** (e.g., admissions, legal drafting, finance summaries) with repeatable workflows.
-- **SaaS tools** that want a chat checkout/usage layer without rebuilding UX and billing.
-
----
+- **Builders of chat-based AIs** that people actually use day to day.
+- **Service creators** who deliver clear, repeatable outcomes in chat (e.g., “summarize my doc,” “polish my cover letter,” “make a thumbnail”).
+- **Niche experts** who can package their know‑how into a simple chat flow users can buy.
+- **SaaS teams** that want a chat front door and instant checkout without rebuilding billing.
+- **Communities/creators** who want to offer paid in‑chat tools their audience will love.
 
 ## Go‑to‑Market
 - **Creator pilots**: co‑branded mini‑apps with rev‑share.
